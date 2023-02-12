@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './AuthTabs.scss';
-// eslint-disable-next-line no-unused-vars
-import backgroundImage from '../../../assets/images/background.jpg';
-import { Login, Register } from '..';
+import '@pages/auth/auth-tabs/AuthTabs.scss';
+import backgroundImage from '@assets/images/background.jpg';
+import Login from '@pages/auth/login/Login';
+import Register from '@pages/auth/register/Register';
 const AuthTabs = () => {
     const [type, setType] = useState('Sign In');
     return (

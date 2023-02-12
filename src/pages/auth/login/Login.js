@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import './Login.scss';
+import '@pages/auth/login/Login.scss';
 import { FaArrowRight } from 'react-icons/fa';
-import { Input, Button } from '../../../components';
-import { Link } from 'react-router-dom';
-import { authService } from '../../../services/api/auth/auth.service';
+import { Input, Button } from '@components/index';
+import { Link, useNavigate } from 'react-router-dom';
+import { authService } from '@services/api/auth/auth.service';
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
@@ -14,6 +14,7 @@ const ForgotPassword = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [alertType, setAlertType] = useState('');
     const [user, setUser] = useState('');
+    const navigate = useNavigate();
 
     const loginUser = async (e) => {
         setLoading(true);
@@ -41,11 +42,8 @@ const ForgotPassword = () => {
 
     useEffect(() => {
         if (loading && !user) return;
-        if (user) {
-            setLoading(false);
-            console.log('navigate to streams page');
-        }
-    }, [loading, user]);
+        if (user) navigate('/app/social/streams');
+    }, [loading, navigate, user]);
 
     return (
         <div className="auth-inner" onSubmit={loginUser}>

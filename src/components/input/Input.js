@@ -1,5 +1,5 @@
 import React from 'react';
-import './Input.scss';
+import '@components/input/Input.scss';
 import PropTypes from 'prop-types';
 
 const Input = ({ id, name, value, type, placeholder, labelText, className, handleChange }) => {

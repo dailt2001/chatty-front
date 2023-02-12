@@ -1,7 +1,7 @@
 import React from 'react';
-import backgroundImage from '../../../assets/images/background.jpg';
-import './ResetPassword.scss';
-import { Input, Button } from '../../../components';
+import backgroundImage from '@assets/images/background.jpg';
+import '@pages/auth/reset-password/ResetPassword.scss';
+import { Input, Button } from '@components/index';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 

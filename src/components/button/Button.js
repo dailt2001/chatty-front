@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 const Button = (props) => {
     const { label, className, handleClick, disabled } = props;
 

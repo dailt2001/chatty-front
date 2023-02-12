@@ -1,5 +1,4 @@
-import axios from '../../axios';
-
+import axios from '@services/axios';
 class AuthService {
     async SignUp(body) {
         const response = await axios.post('/signup', body);
