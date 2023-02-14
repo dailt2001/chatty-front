@@ -1,5 +1,5 @@
 // import { addNotification, clearNotification } from '@redux/reducers/notifications/notification.reducer';
-// import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
+import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 // import { APP_ENVIRONMENT } from '@services/axios';
 import { floor, random } from 'lodash';
 import { avatarColors } from './static-data';
@@ -30,19 +30,23 @@ export class Utils {
         return canvas.toDataURL('image/png');
     }
 
-    // static dispatchUser(result, pageReload, dispatch, setUser) {
-    //     pageReload(true);
-    //     dispatch(addUser({ token: result.data.token, profile: result.data.user }));
-    //     setUser(result.data.user);
-    // }
+    static dispatchUser(result, pageReload, dispatch, setUser) {
+        // result = result in Login component when call service
+        // pageReload:func => set data in browser session
+        // not redirect to Login Page when reload page
+        // dispatch:func => dispatch action
+        // setUser : setUser state Login
+        pageReload(true);
+        dispatch(addUser({ token: result.data.token, profile: result.data.user }));
+        setUser(result.data.user);
+    }
 
-    // static clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn }) {
-    //     dispatch(clearUser());
-    //     dispatch(clearNotification());
-    //     deleteStorageUsername();
-    //     deleteSessionPageReload();
-    //     setLoggedIn(false);
-    // }
+    static clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn }) {
+        dispatch(clearUser());
+        deleteStorageUsername();
+        deleteSessionPageReload();
+        setLoggedIn(false);
+    }
 
     // static dispatchNotification(message, type, dispatch) {
     //     dispatch(addNotification({ message, type }));

@@ -4,17 +4,27 @@ import { FaArrowRight } from 'react-icons/fa';
 import { Input, Button } from '@components/index';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '@services/api/auth/auth.service';
+import useLocalStorage from '@hooks/useLocalStorage';
+import { Utils } from '@services/utils/utils.service';
+import useSessionStorage from '@hooks/useSessionStorage';
+import { useDispatch } from 'react-redux';
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [keepLogIn, setKeepLogIn] = useState(false);
+    const [keepLoggedIn, setKeepLoggedIn] = useState(false);
     const [loading, setLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [alertType, setAlertType] = useState('');
     const [user, setUser] = useState('');
+
+    const [setStoredUsername] = useLocalStorage('username', 'set');
+    const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+    const [pageReload] = useSessionStorage('pageReload', 'set');
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const loginUser = async (e) => {
         setLoading(true);
@@ -26,10 +36,12 @@ const ForgotPassword = () => {
             });
             // set logged in to true in local storage
             // set username in local storage
+            setLoggedIn(keepLoggedIn);
+            setStoredUsername(username);
             // dispatch user to redux
+            Utils.dispatchUser(result, pageReload, dispatch, setUser);
+
             console.log(result);
-            setUser(result.data.user);
-            setKeepLogIn(keepLogIn);
             setAlertType('alert-success');
             setHasError(false);
         } catch (error) {
@@ -79,8 +91,8 @@ const ForgotPassword = () => {
                             id="checkbox"
                             name="checkbox"
                             type="checkbox"
-                            value={keepLogIn}
-                            handleChange={() => setKeepLogIn(!keepLogIn)}
+                            value={keepLoggedIn}
+                            handleChange={() => setKeepLoggedIn(!keepLoggedIn)}
                         />
                         Keep me signed in
                     </label>
